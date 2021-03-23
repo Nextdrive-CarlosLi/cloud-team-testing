@@ -5,4 +5,6 @@ export function findLabel(permissions: Permission[], code: string): string {
         if (permission.code === code) return permission.label;
         if (permission.children.length > 0) return findLabel(permission.children, code)
     }
+
+    return 'Not Find Permission.';
 }
