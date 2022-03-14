@@ -2,14 +2,14 @@ import { Permission } from "./types/Permission";
 import {mockPermissions} from "../dummies/mockPermissions";
 const ERROR_INPUT = 'ERROR INPUT';
 
-const checkPermission =({codeSplitList,layerList}:{codeSplitList:string[],layerList:string[]})=> {
+const checkPermission =({codeSplitList,layerList,permissions}:{codeSplitList:string[],layerList:string[],permissions:Permission[]})=> {
     let target = 0;
     let targetLabel = '';
     let nextLabelList = [];
     let targetText = `${codeSplitList[0]} ${[layerList[0]]}`;
     while (target < layerList.length) {
         if (target === 0) {
-            const codeValue = mockPermissions.find((item) => item.code === targetText);
+            const codeValue = permissions.find((item) => item.code === targetText);
             if (!codeValue) {
                 return ERROR_INPUT;
             }
@@ -39,7 +39,7 @@ export function findLabel(permissions: Permission[], code: string): string {
             return ERROR_INPUT;
         }
         const layerList = codeSplitList[1].split('-');
-        const targetLabel = checkPermission({codeSplitList,layerList})
+        const targetLabel = checkPermission({codeSplitList,layerList,permissions})
 
         return targetLabel
     }
