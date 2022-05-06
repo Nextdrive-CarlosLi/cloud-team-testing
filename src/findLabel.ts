@@ -7,5 +7,8 @@ export function findLabel(permissions: Permission[], code: string): string {
     }
     const candidates = permissions.filter((p: Permission) => p.children.length > 0)
         .map((p) => p.children).reduce((accumulator, value) => accumulator.concat(value), []);
-    return findLabel(candidates, code)
+    if (candidates.length > 0) {
+        return findLabel(candidates, code)
+    }
+    return null
 }
