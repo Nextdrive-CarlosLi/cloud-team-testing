@@ -1,0 +1,44 @@
+.moviecard {
+  position: relative;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.moviecard_poster {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-basis: 100px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  justify-content: center;
+  background: #f3f3f3;
+  border-radius: 8px;
+
+  img {
+    opacity: 0;
+    transition-delay: 0s;
+    transition: 0.5s opacity;
+
+    &.load {
+      opacity: 1;
+    }
+  }
+}
+
+.moviecard_info {
+  padding-left: 16px;
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .sub_title {
+    font-size: 1rem;
+    color: gray;
+  }
+}
