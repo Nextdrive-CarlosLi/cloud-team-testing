@@ -1,0 +1,92 @@
+.movieSearchContainer {
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 800px;
+  min-height: 100vh;
+}
+
+.searchContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.searchContainer input {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.searchContainer button {
+  width: 180px;
+}
+
+.movieContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin: 1rem auto 0;
+  padding: 1rem;
+  max-width: 360px;
+  border: 2px solid grey;
+  border-radius: 0.5rem;
+}
+
+.movieImage {
+  width: 100%;
+}
+
+.movieTitle {
+  font-size: 24px;
+}
+
+.movieReleasedYear {
+  font-style: italic;
+}
+
+.readMoreButton {
+  padding: 0.25rem 0;
+}
+
+.movieDetailModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(10, 10, 10, 0.5);
+}
+
+.movieDetailContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+  padding: 1rem;
+  min-width: 180px;
+  background-color: white;
+  border-radius: 0.25rem;
+  transform: translate(-50%, -50%);
+}
+
+.movieDetailItem {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  grid-template-rows: 1fr;
+}
+
+.movieDetailItemLabel {
+  font-style: italic;
+}
+
+.movieDetailCloseButton {
+  padding: 0.25rem 0;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.resultContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+}
