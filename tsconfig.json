@@ -12,7 +12,11 @@
     "incremental": true,
     "types": [
       "jest"
-    ]
+    ],
+    "jsx": "react",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist"]
 }
+
+
