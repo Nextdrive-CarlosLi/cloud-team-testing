@@ -1,60 +1,35 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Stack } from "@mui/material";
-interface SearchItem {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
-interface MovieItem {
-  Title: string;
-  Year: string;
-  Rated: string;
-  Released: string;
-  Runtime: string;
-  Genre: string;
-  Director: string;
-  Writer: string;
-  Actors: string;
-  Plot: string;
-  Language: string;
-  Country: string;
-  Awards: string;
-  Poster: string;
-  Ratings: Rating[];
-  Metascore: string;
-  imdbRating: string;
-  imdbVotes: string;
-  imdbID: string;
-  Type: string;
-  DVD: string;
-  BoxOffice: string;
-  Production: string;
-  Website: string;
-  Response: string;
-}
+import { AppBar, CardActionArea, CircularProgress, Stack } from "@mui/material";
+import { MovieItem, SearchItem } from "../models/movielist.model";
 
-interface Rating {
-  Source: string;
-  Value: string;
-}
 function MovieList() {
   const [list, setList] = useState<SearchItem[]>([]);
   const [detail, setDetail] = useState<MovieItem>();
   const [value, setValue] = useState<string>("");
   const [currentId, setCurrentId] = useState<string>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleSearch = (keyword: string) => {
+    setIsLoading(true);
     fetch(
       `http://www.omdbapi.com/?s=${keyword}&apikey=cfca455&y=2023tomatoes=true`
     )
       .then((response) => response.json())
-      .then((json) => setList(json.Search))
-      .catch((error) => console.error(error));
+      .then((json: any) => {
+        if (json.Search) {
+          setList(json.Search);
+        } else {
+          setList([]);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setList([]);
+      });
   };
   const handleGetDetail = (id: string) => {
     fetch(`http://www.omdbapi.com/?i=${id}&apikey=cfca455&y=2023tomatoes=true`)
@@ -65,31 +40,38 @@ function MovieList() {
       })
       .catch((error) => console.error(error));
   };
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent) => {
     if (value) handleSearch(value);
     e.preventDefault();
   };
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Input a movie title:
-          <input
-            type="text"
-            value={value}
-            data-testid="input-field"
-            onChange={handleChange}
-          />
-        </label>
-        <input type="submit" value="Search" data-testid="search-btn" />
-      </form>
-      {Boolean(list.length) && (
-        <Stack spacing={2}>
+      <AppBar position="static" sx={{ padding: "16px", marginBottom: "10px" }}>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Input a movie title:
+            <input
+              type="text"
+              value={value}
+              data-testid="input-field"
+              onChange={handleChange}
+            />
+          </label>
+          <input type="submit" value="Search" data-testid="search-btn" />
+        </form>
+      </AppBar>
+      {isLoading && <CircularProgress />}
+      {!isLoading && Boolean(list.length) && (
+        <Stack
+          gap={2}
+          direction={{ md: "row", xs: "column" }}
+          flexWrap={"wrap"}
+        >
           {list.map((item) => (
-            <Card key={item.imdbID} sx={{ maxWidth: 345 }}>
+            <Card key={item.imdbID} sx={{ width: 345 }}>
               <CardActionArea
                 onClick={() => handleGetDetail(item.imdbID)}
                 data-testid={`movie-card-${item.imdbID}`}
@@ -130,6 +112,7 @@ function MovieList() {
           ))}
         </Stack>
       )}
+      {!isLoading && !Boolean(list.length) && <Stack>There is no movies</Stack>}
     </div>
   );
 }
