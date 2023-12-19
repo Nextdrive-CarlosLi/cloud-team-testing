@@ -18,7 +18,7 @@ function MovieList() {
       `http://www.omdbapi.com/?s=${keyword}&apikey=cfca455&y=2023tomatoes=true`
     )
       .then((response) => response.json())
-      .then((json: any) => {
+      .then((json) => {
         if (json.Search) {
           setList(json.Search);
         } else {
