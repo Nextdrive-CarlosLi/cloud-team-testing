@@ -31,7 +31,7 @@ describe("Test MovieSearch Component", () => {
 
     await user.click(screen.getByTestId("search-button"));
 
-    logRoles(container);
+    // logRoles(container);
 
     await waitFor(() =>
       expect(screen.getByTestId("movie-image")).toBeInTheDocument()
@@ -54,7 +54,7 @@ describe("Test MovieSearch Component", () => {
 
     await user.click(screen.getByTestId("read-more-button"));
 
-    logRoles(container);
+    // logRoles(container);
 
     await waitFor(() =>
       expect(screen.getByTestId("movie-detail-modal")).toBeInTheDocument()

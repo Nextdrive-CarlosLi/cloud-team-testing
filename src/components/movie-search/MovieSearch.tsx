@@ -34,7 +34,6 @@ export default function MovieSearch() {
         `https://www.omdbapi.com/?apikey=d9ed132e&t=${searchText}`
       );
       const apiResJson = await apiRes.json();
-      console.log("apiRes", apiRes);
 
       if (!apiRes.ok) {
         console.error(apiResJson.Error);
@@ -43,6 +42,7 @@ export default function MovieSearch() {
 
       setMovie(apiResJson);
     } catch (err) {
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
